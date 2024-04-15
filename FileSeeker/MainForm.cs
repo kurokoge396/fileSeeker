@@ -17,10 +17,40 @@ namespace FileSeeker
             InitializeComponent();
         }
 
+        /// <summary>
+        /// フォーム読み込み時処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            FolderTextBox.Text = Properties.Settings.Default.folderPath;
+            if (!string.IsNullOrEmpty(FolderTextBox.Text))
+            {
+                SetImgList(processor.GetImgPathList(FolderTextBox.Text));
+            }
+        }
+
+        /// <summary>
+        /// ファイル操作ボタン押下処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FileOperationButton_Click(object sender, EventArgs e)
         {
-            // ファイル操作画面を表示
+            var fileList = GetSelectedItems();
+            if (!fileList.Any())
+            {
+                MessageBox.Show("画像を選択してからファイル操作ボタンを押下してください。", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
+            // ファイル操作画面を表示
+            var fileOperationFrom = new FileOperationForm(processor, fileList);
+            fileOperationFrom.ShowDialog();
+
+            // リストビュー再読み込み
+            ReloadListView();
         }
 
         /// <summary>
@@ -30,7 +60,7 @@ namespace FileSeeker
         /// <param name="e"></param>
         private void FileDisplayButton_Click(object sender, EventArgs e)
         {
-            SetImgList(processor.GetImgPathList(FolderTextBox.Text));
+            ReloadListView();
         }
 
         /// <summary>
@@ -63,14 +93,14 @@ namespace FileSeeker
         private void SetImgList(IEnumerable<string> imgPathList)
         {
             var i = 0;
-            foreach (string imgPath in imgPathList)
+            foreach (var imgPath in imgPathList)
             {
                 //画像を読み込み
                 Image img = Image.FromFile(imgPath);
                 //ImageList に画像を追加
                 FileImageList.Images.Add(processor.SetImageDirection(img));
                 //ListView に画像を追加
-                ListView.Items.Add(imgPath, i);
+                ListView.Items.Add(Path.GetFileName(imgPath), i);
                 //画像を破棄
                 img.Dispose();
                 i++;
@@ -115,13 +145,32 @@ namespace FileSeeker
         }
 
         /// <summary>
-        /// 保存したフォルダパスを読み込む
+        /// 選択したリストビューの画像ファイルのパスリストを取得する。
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MainForm_Load(object sender, EventArgs e)
+        /// <returns>画像ファイルのパスリスト</returns>
+        private IEnumerable<string> GetSelectedItems()
         {
-            FolderTextBox.Text = Properties.Settings.Default.folderPath;
+            List<string> items = new List<string>();
+            foreach (ListViewItem item in ListView.SelectedItems)
+            {
+                items.Add(Path.Combine(FolderTextBox.Text, item.Text));
+            }
+
+            return items;
+        }
+
+        /// <summary>
+        /// リストビューを再読み込みする
+        /// </summary>
+        private void ReloadListView()
+        {
+            FileImageList.Images.Clear();
+            ListView.Items.Clear();
+            var filePaths = processor.GetImgPathList(FolderTextBox.Text);
+            if (filePaths.Any())
+            {
+                SetImgList(filePaths);
+            }
         }
     }
 }

@@ -31,8 +31,6 @@
             components = new System.ComponentModel.Container();
             label1 = new Label();
             FolderTextBox = new TextBox();
-            button1 = new Button();
-            button2 = new Button();
             FileOperationButton = new Button();
             FileImageList = new ImageList(components);
             FileDisplayButton = new Button();
@@ -57,27 +55,9 @@
             FolderTextBox.TabIndex = 1;
             FolderTextBox.TextChanged += FolderTextBox_TextChanged;
             // 
-            // button1
-            // 
-            button1.Location = new Point(532, 64);
-            button1.Name = "button1";
-            button1.Size = new Size(100, 30);
-            button1.TabIndex = 2;
-            button1.Text = "フォルダパス追加";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(638, 64);
-            button2.Name = "button2";
-            button2.Size = new Size(100, 30);
-            button2.TabIndex = 3;
-            button2.Text = "フォルダパス削除";
-            button2.UseVisualStyleBackColor = true;
-            // 
             // FileOperationButton
             // 
-            FileOperationButton.Location = new Point(744, 64);
+            FileOperationButton.Location = new Point(735, 28);
             FileOperationButton.Name = "FileOperationButton";
             FileOperationButton.Size = new Size(100, 30);
             FileOperationButton.TabIndex = 4;
@@ -94,7 +74,7 @@
             // FileDisplayButton
             // 
             FileDisplayButton.Enabled = false;
-            FileDisplayButton.Location = new Point(532, 28);
+            FileDisplayButton.Location = new Point(629, 28);
             FileDisplayButton.Name = "FileDisplayButton";
             FileDisplayButton.Size = new Size(100, 30);
             FileDisplayButton.TabIndex = 5;
@@ -105,15 +85,15 @@
             // ListView
             // 
             ListView.LargeImageList = FileImageList;
-            ListView.Location = new Point(28, 97);
+            ListView.Location = new Point(28, 64);
             ListView.Name = "ListView";
-            ListView.Size = new Size(886, 388);
+            ListView.Size = new Size(992, 432);
             ListView.TabIndex = 6;
             ListView.UseCompatibleStateImageBehavior = false;
             // 
             // SelectFolderButton
             // 
-            SelectFolderButton.Location = new Point(28, 61);
+            SelectFolderButton.Location = new Point(523, 28);
             SelectFolderButton.Name = "SelectFolderButton";
             SelectFolderButton.Size = new Size(100, 30);
             SelectFolderButton.TabIndex = 7;
@@ -125,15 +105,14 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(947, 497);
+            ClientSize = new Size(1032, 522);
             Controls.Add(SelectFolderButton);
             Controls.Add(ListView);
             Controls.Add(FileDisplayButton);
             Controls.Add(FileOperationButton);
-            Controls.Add(button2);
-            Controls.Add(button1);
             Controls.Add(FolderTextBox);
             Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Form1";
@@ -146,8 +125,6 @@
         #endregion
         private Label label1;
         private TextBox FolderTextBox;
-        private Button button1;
-        private Button button2;
         private Button FileOperationButton;
         private ListView listView1;
         private ImageList FileImageList;
