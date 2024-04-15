@@ -28,45 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            tabControl1 = new TabControl();
-            tabPage1 = new TabPage();
-            tabPage2 = new TabPage();
+            components = new System.ComponentModel.Container();
             label1 = new Label();
-            textBox1 = new TextBox();
+            FolderTextBox = new TextBox();
             button1 = new Button();
             button2 = new Button();
-            tabControl1.SuspendLayout();
+            FileOperationButton = new Button();
+            FileImageList = new ImageList(components);
+            FileDisplayButton = new Button();
+            ListView = new ListView();
+            SelectFolderButton = new Button();
             SuspendLayout();
-            // 
-            // tabControl1
-            // 
-            tabControl1.Controls.Add(tabPage1);
-            tabControl1.Controls.Add(tabPage2);
-            tabControl1.Location = new Point(28, 76);
-            tabControl1.Name = "tabControl1";
-            tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(895, 409);
-            tabControl1.TabIndex = 0;
-            // 
-            // tabPage1
-            // 
-            tabPage1.Location = new Point(4, 24);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(887, 381);
-            tabPage1.TabIndex = 0;
-            tabPage1.Text = "tabPage1";
-            tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            tabPage2.Location = new Point(4, 24);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(789, 337);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "tabPage2";
-            tabPage2.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -77,16 +49,17 @@
             label1.TabIndex = 0;
             label1.Text = "ファイルサーチ";
             // 
-            // textBox1
+            // FolderTextBox
             // 
-            textBox1.Location = new Point(28, 40);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(489, 23);
-            textBox1.TabIndex = 1;
+            FolderTextBox.Location = new Point(28, 33);
+            FolderTextBox.Name = "FolderTextBox";
+            FolderTextBox.Size = new Size(489, 23);
+            FolderTextBox.TabIndex = 1;
+            FolderTextBox.TextChanged += FolderTextBox_TextChanged;
             // 
             // button1
             // 
-            button1.Location = new Point(532, 40);
+            button1.Location = new Point(532, 64);
             button1.Name = "button1";
             button1.Size = new Size(100, 30);
             button1.TabIndex = 2;
@@ -95,38 +68,92 @@
             // 
             // button2
             // 
-            button2.Location = new Point(638, 40);
+            button2.Location = new Point(638, 64);
             button2.Name = "button2";
             button2.Size = new Size(100, 30);
             button2.TabIndex = 3;
             button2.Text = "フォルダパス削除";
             button2.UseVisualStyleBackColor = true;
             // 
+            // FileOperationButton
+            // 
+            FileOperationButton.Location = new Point(744, 64);
+            FileOperationButton.Name = "FileOperationButton";
+            FileOperationButton.Size = new Size(100, 30);
+            FileOperationButton.TabIndex = 4;
+            FileOperationButton.Text = "ファイル操作";
+            FileOperationButton.UseVisualStyleBackColor = true;
+            FileOperationButton.Click += FileOperationButton_Click;
+            // 
+            // FileImageList
+            // 
+            FileImageList.ColorDepth = ColorDepth.Depth32Bit;
+            FileImageList.ImageSize = new Size(160, 90);
+            FileImageList.TransparentColor = Color.Transparent;
+            // 
+            // FileDisplayButton
+            // 
+            FileDisplayButton.Enabled = false;
+            FileDisplayButton.Location = new Point(532, 28);
+            FileDisplayButton.Name = "FileDisplayButton";
+            FileDisplayButton.Size = new Size(100, 30);
+            FileDisplayButton.TabIndex = 5;
+            FileDisplayButton.Text = "ファイル表示";
+            FileDisplayButton.UseVisualStyleBackColor = true;
+            FileDisplayButton.Click += FileDisplayButton_Click;
+            // 
+            // ListView
+            // 
+            ListView.LargeImageList = FileImageList;
+            ListView.Location = new Point(28, 97);
+            ListView.Name = "ListView";
+            ListView.Size = new Size(886, 388);
+            ListView.TabIndex = 6;
+            ListView.UseCompatibleStateImageBehavior = false;
+            // 
+            // SelectFolderButton
+            // 
+            SelectFolderButton.Location = new Point(28, 61);
+            SelectFolderButton.Name = "SelectFolderButton";
+            SelectFolderButton.Size = new Size(100, 30);
+            SelectFolderButton.TabIndex = 7;
+            SelectFolderButton.Text = "フォルダ選択";
+            SelectFolderButton.UseVisualStyleBackColor = true;
+            SelectFolderButton.Click += SelectFolderButton_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(947, 497);
+            Controls.Add(SelectFolderButton);
+            Controls.Add(ListView);
+            Controls.Add(FileDisplayButton);
+            Controls.Add(FileOperationButton);
             Controls.Add(button2);
             Controls.Add(button1);
-            Controls.Add(textBox1);
+            Controls.Add(FolderTextBox);
             Controls.Add(label1);
-            Controls.Add(tabControl1);
             Name = "MainForm";
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Form1";
-            tabControl1.ResumeLayout(false);
+            FormClosed += MainForm_FormClosed;
+            Load += MainForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private TabControl tabControl1;
-        private TabPage tabPage1;
-        private TabPage tabPage2;
         private Label label1;
-        private TextBox textBox1;
+        private TextBox FolderTextBox;
         private Button button1;
         private Button button2;
+        private Button FileOperationButton;
+        private ListView listView1;
+        private ImageList FileImageList;
+        private Button FileButton;
+        private Button FileDisplayButton;
+        private ListView ListView;
+        private Button SelectFolderButton;
     }
 }
